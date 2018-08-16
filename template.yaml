@@ -57,6 +57,9 @@ Resources:
             Schedule: rate(10 minutes)
           Metadata:
             StackeryName: Every 10 minutes
+      Environment:
+        Variables:
+          buckets: !Ref StackeryEnvConfigbucketsAsString
     Metadata:
       StackeryName: exerciseImageProcessing
 Parameters:
@@ -69,6 +72,10 @@ Parameters:
   StackeryEnvConfigurlsAsString:
     Type: AWS::SSM::Parameter::Value<String>
     Default: /Stackery/Environments/<StackeryEnvId>/Config/urls
+  StackeryEnvConfigbucketsAsString:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /Stackery/Environments/<StackeryEnvId>/Config/buckets
 Metadata:
   StackeryEnvConfigParameters:
     StackeryEnvConfigurlsAsString: urls
+    StackeryEnvConfigbucketsAsString: buckets
