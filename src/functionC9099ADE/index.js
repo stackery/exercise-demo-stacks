@@ -3,6 +3,7 @@ const urls = JSON.parse(process.env.urls);
 
 exports.handler = async message => {
   for (const url of urls) {
+    console.log(`URL: ${url}`);
     let user = {
       id: `user${Math.floor(Math.random() * 10000)}`,
       firstName: 'Jane',
