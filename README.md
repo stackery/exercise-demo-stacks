@@ -16,6 +16,7 @@ were hand-coded into template.yaml.
 The list of url's for CRUD exercise and the list of S3 Buckets for image
 exercise must be included in the stack environment:
 
+```json
 {
   "buckets": [
     "stackery-12345-objectstore1234abc",
@@ -26,4 +27,4 @@ exercise must be included in the stack environment:
     "https://xyzz.execute-api.us-east-1.amazonaws.com/dev_us_east_1/users"
   ]
 }
-
+```
