@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Stackery Serverless API Example Stack
+Resources:
+  functionC9099ADE:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-functionC9099ADE
+      Description: !Sub
+        - Stackery Stack ${StackeryStackTagName} Environment ${StackeryEnvironmentTagName} Function ${ResourceName}
+        - ResourceName: exerciseCrudDemo
+      CodeUri: src/functionC9099ADE
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+      Events:
+        timer110AB06E:
+          Type: Schedule
+          Properties:
+            Schedule: rate(10 minutes)
+          Metadata:
+            StackeryName: Every 10 minutes
+      Environment:
+        Variables:
+          urls: !Ref StackeryEnvConfigurlsAsString
+    Metadata:
+      StackeryName: exerciseCrudDemo
+  functionF18101DD:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-functionF18101DD
+      Description: !Sub
+        - Stackery Stack ${StackeryStackTagName} Environment ${StackeryEnvironmentTagName} Function ${ResourceName}
+        - ResourceName: exerciseImageProcessing
+      CodeUri: src/exerciseImageProcessing
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - S3CrudPolicy:
+            BucketName: stackery-258271872216350-objectstore17320cbe
+        - S3CrudPolicy:
+            BucketName: stackery-227034368765459-objectstore3d456515
+        - S3CrudPolicy:
+            BucketName: stackery-66376647822872-objectstore3d456515
+      Events:
+        timer30E857AF:
+          Type: Schedule
+          Properties:
+            Schedule: rate(10 minutes)
+          Metadata:
+            StackeryName: Every 10 minutes
+    Metadata:
+      StackeryName: exerciseImageProcessing
+Parameters:
+  StackeryStackTagName:
+    Type: String
+    Description: Stack Name (injected by Stackery at deployment time)
+  StackeryEnvironmentTagName:
+    Type: String
+    Description: Environment Name (injected by Stackery at deployment time)
+  StackeryEnvConfigurlsAsString:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /Stackery/Environments/<StackeryEnvId>/Config/urls
+Metadata:
+  StackeryEnvConfigParameters:
+    StackeryEnvConfigurlsAsString: urls
