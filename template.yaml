@@ -57,6 +57,12 @@ Resources:
             Schedule: rate(10 minutes)
           Metadata:
             StackeryName: Every 10 minutes
+        timerBA804303:
+          Type: Schedule
+          Properties:
+            Schedule: rate(3 minute)
+          Metadata:
+            StackeryName: Every 3 minutes
       Environment:
         Variables:
           buckets: !Ref StackeryEnvConfigbucketsAsString
