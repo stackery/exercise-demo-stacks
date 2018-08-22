@@ -21,9 +21,15 @@ Resources:
         timer110AB06E:
           Type: Schedule
           Properties:
-            Schedule: rate(10 minutes)
+            Schedule: rate(7 minutes)
           Metadata:
-            StackeryName: Every 10 minutes
+            StackeryName: Every 7 minutes
+        timer8B185C35:
+          Type: Schedule
+          Properties:
+            Schedule: rate(5 minutes)
+          Metadata:
+            StackeryName: Every 5 minutes
       Environment:
         Variables:
           urls: !Ref StackeryEnvConfigurlsAsString
